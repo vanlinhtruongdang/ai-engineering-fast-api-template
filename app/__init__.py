@@ -1,0 +1,1 @@
+"""FastAPI template application package."""
