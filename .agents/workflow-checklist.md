@@ -11,7 +11,7 @@
 ## While coding
 
 - Keep changes small and use names that describe their purpose.
-- Do not add placeholders, aliases, or infrastructure without a consumer.
+- Keep template placeholder packages intact; do not add implementation, aliases, or infrastructure without a consumer.
 - Confirm a potential hot path is measured before optimizing it.
 - Prefer deterministic validation and reusable contracts over prompt-only behavior.
 

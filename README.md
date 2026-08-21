@@ -1,6 +1,6 @@
 # FastAPI Template
 
-A reusable FastAPI foundation for backend services. It provides a small production-oriented core and documents extension paths instead of committing unused application layers.
+A reusable FastAPI foundation for backend services. It provides a small production-oriented core and keeps empty extension packages discoverable for projects that need them.
 
 ## Quick start
 
@@ -34,7 +34,7 @@ scripts/      Repeatable quality, test, and GitNexus commands
 .agents/      Contributor and coding-agent conventions
 ```
 
-Create `repositories/`, `models/`, and `db/` only when a persistence adapter is needed. Create `agents/` or `pipelines/` only when the project has a concrete agent or multi-step processing contract.
+The template keeps `repositories/`, `models/`, `db/`, `agents/`, `pipelines/`, `common/`, and `utils/` as empty extension packages. Add implementation only when the project has the matching contract.
 
 ## Quality commands
 
