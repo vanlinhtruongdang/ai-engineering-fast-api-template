@@ -5,7 +5,7 @@
 - Read the exact files in scope and define the change boundary.
 - Identify the source of truth: schema, service, configuration, documentation, or test.
 - Confirm the relevant FastAPI conventions.
-- Run GitNexus impact analysis before changing an existing function, class, or method.
+- Run `git status --short`, preserve unrelated work, then run GitNexus impact analysis before changing an existing function, class, or method.
 - For agent work, define input, output, failure, and audit contracts first.
 
 ## While coding
@@ -18,16 +18,13 @@
 ## Before finishing
 
 ```bash
-uv run ruff format --check
-uv run ruff check
-uv run ty check
-uv run pytest
+scripts/verify.sh
 ```
 
 - Record performance measurements when relevant.
 - Recheck public documentation after a public contract changes.
 - Review `git status` and `git diff`.
-- Run `gitnexus detect_changes` before commit, then refresh the index after commit.
+- Run `gitnexus detect_changes --repo fastapi_template --scope staged` before commit, then refresh the index after commit.
 
 ## Containers
 
