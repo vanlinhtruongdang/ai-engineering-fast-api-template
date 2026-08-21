@@ -1,3 +1,4 @@
+import json
 import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
@@ -7,6 +8,20 @@ import colorlog
 from app.core.config import get_logging_settings
 
 _LOGGING_CONFIGURED = False
+
+
+class JsonFormatter(logging.Formatter):
+    """Render standard log records as single-line JSON without external dependencies."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        return json.dumps(
+            {
+                "timestamp": self.formatTime(record, "%Y-%m-%dT%H:%M:%S%z"),
+                "level": record.levelname,
+                "logger": record.name,
+                "message": record.getMessage(),
+            }
+        )
 
 
 def configure_logging() -> None:
@@ -25,7 +40,7 @@ def configure_logging() -> None:
     logging.getLogger("watchfiles").setLevel(logging.WARNING)
     logging.getLogger("watchfiles.main").setLevel(logging.WARNING)
 
-    console_formatter = colorlog.ColoredFormatter(
+    console_formatter: logging.Formatter = colorlog.ColoredFormatter(
         "%(log_color)s%(levelname)s%(reset)s | %(asctime)s | %(name)s | %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
         log_colors={
@@ -36,11 +51,15 @@ def configure_logging() -> None:
             "CRITICAL": "bold_red",
         },
     )
+    if settings.json_logs:
+        console_formatter = JsonFormatter()
 
-    file_formatter = logging.Formatter(
+    file_formatter: logging.Formatter = logging.Formatter(
         "%(levelname)s | %(asctime)s | %(name)s | %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
+    if settings.json_logs:
+        file_formatter = JsonFormatter()
 
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(console_formatter)
