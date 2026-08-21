@@ -13,7 +13,7 @@ These rules apply to Python code in projects created from this template.
 
 ## Ruff and Ty
 
-Every Python change must pass the configured checks:
+Every Python change must pass the configured checks. Ruff enforces correctness, imports, annotations, FastAPI behavior, security, performance, return, and pytest rules. Exceptions are limited to pytest assertions and the container bind host, and are documented in `pyproject.toml`.
 
 ```bash
 uv run ruff format --check
@@ -21,7 +21,7 @@ uv run ruff check
 uv run ty check
 ```
 
-Do not suppress unresolved imports or type errors merely because the application runs.
+Ty treats invalid arguments, assignments, returns, unresolved imports, and unresolved references as errors. Do not suppress type errors merely because the application runs.
 
 ## FastAPI structure
 

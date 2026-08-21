@@ -40,8 +40,24 @@ src = ["app", "tests"]
 exclude = []
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "F", "I", "UP", "B", "C4", "SIM", "RUF"]
-ignore = ["E501"]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "C4",
+    "SIM",
+    "RUF",
+    "ANN",
+    "ARG",
+    "FAST",
+    "PERF",
+    "PT",
+    "RET",
+    "S",
+]
+ignore = []
 fixable = ["ALL"]
 unfixable = []
 
@@ -49,6 +65,12 @@ unfixable = []
 known-first-party = [
     "app",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+# Pytest assertions are the intended test contract mechanism.
+"tests/**/*.py" = ["S101"]
+# Uvicorn must bind all interfaces when the container publishes the service port.
+"app/core/config.py" = ["S104"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -68,6 +90,9 @@ exclude = [
 ]
 
 [tool.ty.rules]
+invalid-argument-type = "error"
+invalid-assignment = "error"
+invalid-return-type = "error"
 possibly-unresolved-reference = "error"
 unresolved-import = "error"
 

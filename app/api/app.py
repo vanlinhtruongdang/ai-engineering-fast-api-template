@@ -1,3 +1,4 @@
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -23,7 +24,7 @@ def _parse_cors_values(raw_value: str, *, default_wildcard: bool = False) -> lis
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI) -> AsyncIterator[None]:
     configure_logging()
     yield
 

@@ -1,9 +1,13 @@
+from collections.abc import Awaitable, Callable
 from uuid import uuid4
 
 from fastapi import Request, Response
 
 
-async def attach_request_id(request: Request, call_next) -> Response:
+async def attach_request_id(
+    request: Request,
+    call_next: Callable[[Request], Awaitable[Response]],
+) -> Response:
     """Attach a correlation identifier without trusting an empty client value."""
 
     header_name = request.app.state.request_id_header
