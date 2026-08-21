@@ -27,6 +27,20 @@ async def test_root_health_check() -> None:
     assert response.json() == {"status": "ok"}
 
 
+async def test_readiness_checks_are_available() -> None:
+    versioned = await get("/api/v1/health/ready")
+    root = await get("/ready")
+
+    assert versioned.json() == {"status": "ok"}
+    assert root.json() == {"status": "ok"}
+
+
+async def test_request_id_is_generated_and_echoed() -> None:
+    response = await request("GET", "/api/v1/health", headers={"X-Request-ID": "test-request"})
+
+    assert response.headers["X-Request-ID"] == "test-request"
+
+
 async def test_system_info_root() -> None:
     response = await get("/api/v1/")
 
