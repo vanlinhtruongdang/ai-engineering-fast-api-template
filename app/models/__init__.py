@@ -1,1 +1,1 @@
-"""ORM models placeholder."""
+"""Extension package for persistence models."""

@@ -5,7 +5,7 @@
 The template favors a compact, production-oriented HTTP service:
 
 - Keep API contracts, infrastructure, and business behavior separate.
-- Start with only the packages that have active consumers.
+- Keep conventional extension packages discoverable without pre-implementing their behavior.
 - Make development ergonomics explicit without making production permissive.
 - Provide documented extension seams rather than speculative placeholders.
 
@@ -34,12 +34,13 @@ The application factory loads settings, configures middleware, and mounts the ve
 
 `/health` is a liveness endpoint and must not depend on optional infrastructure. `/ready` reports whether enabled mandatory dependencies are usable. Projects add dependency checks only when they add the dependency itself.
 
-## Extension paths
+## Extension packages
 
-- Add `repositories/`, `models/`, and `db/` when introducing a persistence boundary.
-- Add `agents/` only when a defined agent input/output contract exists.
-- Add `pipelines/` for a concrete multi-step processing flow.
-- Keep shared behavior in `services/` unless a narrower bounded context warrants a new package.
+- `repositories/`, `models/`, and `db/` are placeholders for a persistence boundary.
+- `agents/` is reserved for a defined agent input/output contract.
+- `pipelines/` is reserved for a concrete multi-step processing flow.
+- `common/` and `utils/` are available for narrowly scoped shared code.
+- Keep these packages empty until the matching capability is needed.
 
 ## Testing model
 

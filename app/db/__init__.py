@@ -1,1 +1,1 @@
-"""Database helpers placeholder."""
+"""Extension package for database helpers and session boundaries."""

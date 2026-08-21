@@ -23,6 +23,6 @@ This guide applies to developers and coding agents working in this FastAPI templ
 
 - Fix the root cause rather than applying a temporary patch.
 - Keep changes small, explicit, and easy to review.
-- Do not create files or directories without a clear consumer or extension contract.
+- Keep template extension packages available for discoverability; add implementation only when a project has a clear consumer or extension contract.
 - Verify changes with the appropriate tools before finishing.
 - Identify the source of truth—schema, service, configuration, documentation, or test—before changing a contract.
