@@ -17,6 +17,7 @@ This guide applies to developers and coding agents working in this FastAPI templ
 - [Performance guidelines](performance-guidelines.md)
 - [Testing guidelines](testing-guidelines.md)
 - [GitNexus guidelines](gitnexus-guidelines.md)
+- [Evidence and scope control](evidence-and-scope.md)
 - [Agent design principles](agent-design-principles.md)
 - [Working checklist](workflow-checklist.md)
 
@@ -28,3 +29,4 @@ This guide applies to developers and coding agents working in this FastAPI templ
 - Verify changes with the appropriate tools before finishing.
 - Identify the source of truth—schema, service, configuration, documentation, or test—before changing a contract.
 - Preserve pre-existing work outside the task boundary and use the repository scripts as the source of truth for verification commands.
+- Treat verified evidence, explicit assumptions, and implementation decisions as distinct categories.
