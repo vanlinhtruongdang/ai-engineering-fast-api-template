@@ -16,10 +16,7 @@ jobs:
         with:
           python-version-file: .python-version
       - run: uv sync --locked --all-groups
-      - run: uv run ruff format --check
-      - run: uv run ruff check
-      - run: uv run ty check
-      - run: scripts/test-suite.sh default
+      - run: scripts/verify.sh
   container:
     runs-on: ubuntu-latest
     steps:

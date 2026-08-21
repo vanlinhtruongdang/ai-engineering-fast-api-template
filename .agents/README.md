@@ -15,6 +15,7 @@ This guide applies to developers and coding agents working in this FastAPI templ
 - [Python and FastAPI conventions](python-fastapi-conventions.md)
 - [Git conventions](git-conventions.md)
 - [Performance guidelines](performance-guidelines.md)
+- [Testing guidelines](testing-guidelines.md)
 - [GitNexus guidelines](gitnexus-guidelines.md)
 - [Agent design principles](agent-design-principles.md)
 - [Working checklist](workflow-checklist.md)
@@ -26,3 +27,4 @@ This guide applies to developers and coding agents working in this FastAPI templ
 - Keep template extension packages available for discoverability; add implementation only when a project has a clear consumer or extension contract.
 - Verify changes with the appropriate tools before finishing.
 - Identify the source of truth—schema, service, configuration, documentation, or test—before changing a contract.
+- Preserve pre-existing work outside the task boundary and use the repository scripts as the source of truth for verification commands.
