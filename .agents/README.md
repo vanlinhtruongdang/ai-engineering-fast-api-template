@@ -1,24 +1,32 @@
-# Internal Agent Guide
+# Internal Contributor Guide
 
-Tài liệu này dành cho dev và agent làm việc trong template FastAPI này.
+This guide applies to developers and coding agents working in this FastAPI template.
 
-## Mục tiêu
+## Goals
 
-- Code phải theo chuẩn `ruff`
-- Type-check phải theo `ty`
-- API phải bám FastAPI convention
-- Git phải theo git convention thống nhất
+- Python code follows the repository's Ruff configuration.
+- Static type checking uses Ty.
+- HTTP APIs follow the FastAPI conventions documented here.
+- Git history follows the shared Git conventions.
+- Code changes receive GitNexus impact analysis before modification.
 
-## Tài liệu liên quan
+## Related guides
 
-- [Python & FastAPI conventions](./python-fastapi-conventions.md)
-- [Git conventions](./git-conventions.md)
-- [Performance guidelines](./performance-guidelines.md)
-- [Working checklist](./workflow-checklist.md)
+- [Python and FastAPI conventions](python-fastapi-conventions.md)
+- [Git conventions](git-conventions.md)
+- [Performance guidelines](performance-guidelines.md)
+- [Testing guidelines](testing-guidelines.md)
+- [GitNexus guidelines](gitnexus-guidelines.md)
+- [Evidence and scope control](evidence-and-scope.md)
+- [Agent design principles](agent-design-principles.md)
+- [Working checklist](workflow-checklist.md)
 
-## Nguyên tắc chung
+## General principles
 
-- Ưu tiên sửa đúng root cause thay vì vá tạm
-- Giữ thay đổi nhỏ, rõ ràng, dễ review
-- Không tạo thêm file hay thư mục nếu chưa có lý do rõ ràng
-- Luôn kiểm tra lại bằng công cụ phù hợp trước khi kết thúc
+- Fix the root cause rather than applying a temporary patch.
+- Keep changes small, explicit, and easy to review.
+- Keep template extension packages available for discoverability; add implementation only when a project has a clear consumer or extension contract.
+- Verify changes with the appropriate tools before finishing.
+- Identify the source of truth—schema, service, configuration, documentation, or test—before changing a contract.
+- Preserve pre-existing work outside the task boundary and use the repository scripts as the source of truth for verification commands.
+- Treat verified evidence, explicit assumptions, and implementation decisions as distinct categories.

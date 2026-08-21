@@ -1,120 +1,47 @@
 # FastAPI Template Architecture
 
-Tài liệu này giải thích layout của template và lý do nó được tổ chức như hiện tại.
+## Design goals
 
-## Mục tiêu thiết kế
+The template favors a compact, production-oriented HTTP service:
 
-Template này ưu tiên 4 mục tiêu cùng lúc:
+- Keep API contracts, infrastructure, and business behavior separate.
+- Keep conventional extension packages discoverable without pre-implementing their behavior.
+- Make development ergonomics explicit without making production permissive.
+- Provide documented extension seams rather than speculative placeholders.
 
-- Bám sát convention phổ biến của FastAPI
-- Giữ cấu trúc đủ rộng để dùng lại cho nhiều pattern khác nhau
-- Tách rõ trách nhiệm giữa API, core, services, schemas và tests
-- Dễ đọc với người mới clone repo lần đầu
-- Có sẵn các package placeholder để mở rộng theo nhiều hướng khác nhau
-
-## Cấu trúc thư mục
+## Core layout
 
 ```text
 app/
-├── __init__.py
-├── main.py
-├── api/
-│   ├── app.py
-│   ├── dependencies.py
-│   └── v1/
-│       ├── router.py
-│       └── endpoints/
-├── core/
-├── schemas/
-├── services/
-├── repositories/
-├── models/
-├── db/
-├── utils/
-├── common/
-├── pipelines/
-└── agents/
+  main.py                 Application entry point
+  api/
+    app.py                Application factory and middleware
+    dependencies.py       Shared HTTP dependencies
+    v1/                   Versioned router and endpoint modules
+  core/                   Settings, logging, request context, infrastructure helpers
+  schemas/                Pydantic request and response contracts
+  services/               Business behavior independent of HTTP transport
 tests/
-└── api/
-    └── v1/
-        └── endpoints/
+  api/                    API contract and middleware tests
+  services/               Service behavior tests
 ```
 
-## Ý nghĩa từng lớp
+## Request flow
 
-### `app/main.py`
+The application factory loads settings, configures middleware, and mounts the versioned router. An endpoint validates its request and delegates behavior to a service. Services return contract objects or raise typed application errors; the API layer renders the stable response shape.
 
-Entry point của ứng dụng. File này tạo app, cấu hình logging, rồi khởi chạy Uvicorn khi chạy local.
+## Health and readiness
 
-### `app/api/`
+`/health` is a liveness endpoint and must not depend on optional infrastructure. `/ready` reports whether enabled mandatory dependencies are usable. Projects add dependency checks only when they add the dependency itself.
 
-Chứa mọi thứ liên quan đến HTTP layer:
+## Extension packages
 
-- `app.py`: app factory
-- `dependencies.py`: dependency dùng chung
-- `v1/router.py`: gom router theo version
-- `v1/endpoints/`: mỗi module route theo một nhóm chức năng
+- `repositories/`, `models/`, and `db/` are placeholders for a persistence boundary.
+- `agents/` is reserved for a defined agent input/output contract.
+- `pipelines/` is reserved for a concrete multi-step processing flow.
+- `common/` and `utils/` are available for narrowly scoped shared code.
+- Keep these packages empty until the matching capability is needed.
 
-### `app/core/`
+## Testing model
 
-Nơi để các cấu hình nền tảng:
-
-- settings
-- logging
-- security
-- database helpers
-
-### `app/schemas/`
-
-Chứa Pydantic models cho request/response. Layer này giúp API contract rõ ràng và dễ test.
-
-### `app/services/`
-
-Chứa business logic. Route nên mỏng, không xử lý nghiệp vụ trực tiếp ở đây.
-
-### `app/repositories/`
-
-Placeholder cho lớp truy cập dữ liệu khi project cần database thật.
-
-### `app/models/`
-
-Placeholder cho ORM models.
-
-### `app/db/`
-
-Placeholder cho các helper hoặc pattern liên quan database.
-
-### `app/utils/`
-
-Placeholder cho helper dùng chung.
-
-### `app/common/`
-
-Placeholder cho các thành phần shared giữa nhiều feature.
-
-### `app/pipelines/`
-
-Placeholder cho flow xử lý nhiều bước, ví dụ ETL hoặc workflow pipeline.
-
-### `app/agents/`
-
-Placeholder cho agent-related patterns về sau.
-
-## FastAPI conventions đang được áp dụng
-
-- App factory nằm ở `app/api/app.py`
-- Versioned router nằm ở `app/api/v1/router.py`
-- Route modules nằm ở `app/api/v1/endpoints/`
-- `health` endpoint riêng, `system/info` endpoint riêng
-- Dependency được tách khỏi route
-- Service layer được tách khỏi HTTP layer
-- Các package placeholder được giữ sẵn để mở rộng khi project cần thêm pattern mới
-
-## Khi thêm feature mới
-
-Khuyến nghị đi theo flow này:
-
-1. Tạo schema trong `app/schemas/`
-2. Viết logic trong `app/services/`
-3. Tạo route trong `app/api/v1/endpoints/`
-4. Thêm test mirror theo `tests/api/v1/endpoints/`
+Tests use one primary taxonomy marker: `unit`, `component`, `integration`, `acceptance`, or `live`. The default lane runs without infrastructure or credentials. Projects opt into the additional lanes when their requirements and fixtures exist.
