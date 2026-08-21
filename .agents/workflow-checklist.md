@@ -3,6 +3,7 @@
 ## Before coding
 
 - Read the exact files in scope and define the change boundary.
+- Classify material conclusions as facts, assumptions, or decisions and resolve conflicting sources of truth before editing.
 - Identify the source of truth: schema, service, configuration, documentation, or test.
 - Confirm the relevant FastAPI conventions.
 - Run `git status --short`, preserve unrelated work, then run GitNexus impact analysis before changing an existing function, class, or method.
@@ -14,6 +15,7 @@
 - Keep template placeholder packages intact; do not add implementation, aliases, or infrastructure without a consumer.
 - Confirm a potential hot path is measured before optimizing it.
 - Prefer deterministic validation and reusable contracts over prompt-only behavior.
+- Keep adjacent cleanup and speculative improvements out of scope unless they map to an accepted requirement.
 
 ## Before finishing
 
@@ -24,6 +26,7 @@ scripts/verify.sh
 - Record performance measurements when relevant.
 - Recheck public documentation after a public contract changes.
 - Review `git status` and `git diff`.
+- Distinguish completed work, evidence, limitations, and deferred follow-ups in the handoff.
 - Run `gitnexus detect_changes --repo fastapi_template --scope staged` before commit, then refresh the index after commit.
 
 ## Containers

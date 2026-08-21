@@ -16,7 +16,7 @@ Before analyzing, planning, editing, reviewing, or testing this repository:
 | Task | Required guide |
 | --- | --- |
 | Any repository work | `.agents/README.md` |
-| Code exploration, impact analysis, implementation, refactoring, or review | `.agents/gitnexus-guidelines.md` |
+| Code exploration, impact analysis, implementation, refactoring, or review | `.agents/gitnexus-guidelines.md`, `.agents/evidence-and-scope.md` |
 | Python or FastAPI changes | `.agents/python-fastapi-conventions.md` |
 | Tests, fixtures, coverage, or test reports | `.agents/testing-guidelines.md` |
 | Performance-sensitive changes | `.agents/performance-guidelines.md` |
