@@ -1,0 +1,30 @@
+# Repository Instructions
+
+These instructions apply to every file in this repository.
+
+## Mandatory startup
+
+Before analyzing, planning, editing, reviewing, or testing this repository:
+
+1. Read `.agents/README.md` completely.
+2. Read `.agents/gitnexus-guidelines.md` completely before exploring or changing code.
+3. Read every additional guide that matches the task from the routing table below.
+
+## Guidance routing
+
+| Task | Required guide |
+| --- | --- |
+| Any repository work | `.agents/README.md` |
+| Code exploration, impact analysis, implementation, refactoring, or review | `.agents/gitnexus-guidelines.md` |
+| Python or FastAPI changes | `.agents/python-fastapi-conventions.md` |
+| Performance-sensitive changes | `.agents/performance-guidelines.md` |
+| Agent, prompt, or workflow design | `.agents/agent-design-principles.md` |
+| Git operations or commits | `.agents/git-conventions.md` |
+| Implementation and final verification | `.agents/workflow-checklist.md` |
+
+## GitNexus enforcement
+
+- Treat `.agents/gitnexus-guidelines.md` as the canonical GitNexus rule set.
+- Refresh the index only with `scripts/gitnexus-refresh.sh`; never run a plain `gitnexus analyze`.
+- Run impact analysis before editing a function, class, or method.
+- Run `detect_changes` before committing and refresh the index after a commit.
