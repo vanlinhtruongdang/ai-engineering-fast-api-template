@@ -1,73 +1,45 @@
-# Python & FastAPI Conventions
+# Python and FastAPI Conventions
 
-Tài liệu này quy định chuẩn code cho toàn bộ template.
+These rules apply to Python code in projects created from this template.
 
-## 1. Python style
+## Python style
 
-- Dùng Python 3.12+
-- Ưu tiên code rõ ràng, ngắn gọn, dễ đọc
-- Viết type hints cho public functions và data structures
-- Dùng `from __future__ import annotations` nếu dự án cần
-- Ưu tiên built-in functions và standard library trước khi thêm dependency mới
-- Tránh tối ưu sớm nếu chưa profile
-- Ưu tiên cấu trúc dữ liệu đúng mục đích: `dict` cho lookup, `set` cho membership
-- Hạn chế tạo bản sao dữ liệu không cần thiết
-- Dùng cache như `lru_cache` cho computation đắt tiền nhưng ổn định
+- Target Python 3.12 or later.
+- Prefer clear, concise code with type hints on public functions and data structures.
+- Prefer the standard library before introducing a dependency.
+- Choose data structures that fit the operation: `dict` for lookup and `set` for membership.
+- Avoid premature optimization, unnecessary copies, and expensive work at import time.
+- Cache only stable, measured computations with an appropriate cache boundary.
 
-## 2. Ruff rules
+## Ruff and Ty
 
-Mọi thay đổi Python phải pass `ruff`:
+Every Python change must pass the configured checks. Ruff enforces correctness, imports, annotations, FastAPI behavior, security, performance, return, and pytest rules. Exceptions are limited to pytest assertions and the container bind host, and are documented in `pyproject.toml`.
 
-- Chạy `ruff format` cho format
-- Chạy `ruff check` cho lint
-- Không để import thừa
-- Không để biến, hàm, hoặc file rác không dùng
-- Giữ code theo line length và import order của project
+```bash
+uv run ruff format --check
+uv run ruff check
+uv run ty check
+```
 
-## 3. Ty rules
+Ty treats invalid arguments, assignments, returns, unresolved imports, and unresolved references as errors. Do not suppress type errors merely because the application runs.
 
-Mọi thay đổi Python phải pass `ty`:
+## FastAPI structure
 
-- Không bỏ qua lỗi unresolved import
-- Không bỏ qua lỗi type chỉ vì “chạy được”
-- Giữ type của function rõ ràng
-- Dùng `dict[str, ...]`, `list[...]`, `Optional[...]` hoặc `| None` nhất quán
+- `app/main.py` is the runnable entry point.
+- `app/api/app.py` owns the application factory and middleware registration.
+- `app/api/v1/router.py` composes versioned routers.
+- `app/api/v1/endpoints/` contains route modules.
+- `app/core/` owns settings, logging, security, and infrastructure helpers.
+- `app/services/` owns business logic; handlers should remain thin.
+- `app/schemas/` owns request and response contracts.
+- Use `Depends()` for shared request dependencies where it improves clarity.
+- Use a lifespan for startup and shutdown rather than import-time side effects.
 
-## 4. FastAPI convention
+## Adding a feature
 
-- App entry point nằm ở `app/main.py`
-- App factory nằm ở `app/api/app.py`
-- Route versioned nằm ở `app/api/v1/router.py`
-- Route modules nằm ở `app/api/v1/endpoints/`
-- `app/core/` dành cho config, logging, security, infra helpers
-- `app/services/` dành cho business logic
-- `app/schemas/` dành cho request/response schema
-- Dependency dùng `Depends()` và tách khỏi handler khi hợp lý
-- Route handler nên mỏng, không nhét nghiệp vụ vào handler
-- Ưu tiên async cho các flow I/O hoặc kiến trúc cần mở rộng
-- Dùng `lifespan` cho init/cleanup thay vì side effect import-time
-
-## 5. Naming
-
-- Router cấp version nên dùng tên `api_router`
-- Route module nên đặt theo chức năng, ví dụ `health.py`, `info.py`
-- Hàm handler nên đặt theo action, ví dụ `read_system_info`
-- Schema nên đặt theo mục đích, ví dụ `HealthResponse`
-- Tránh tên mơ hồ như `service_root`, `main_route`, nếu nó không phản ánh đúng ý nghĩa
-
-## 6. Validation checklist
-
-Trước khi hoàn tất công việc, tối thiểu phải kiểm tra:
-
-- `uv run ruff format`
-- `uv run ruff check`
-- `uv run ty check`
-- `uv run pytest`
-
-## 7. Khi thêm feature mới
-
-- Tạo schema trước nếu API contract thay đổi
-- Tách logic vào service thay vì để ở route
-- Chỉ thêm repository/model khi thật sự có data access layer
-- Thêm test tương ứng theo cùng nhánh thư mục
-- Nếu feature có khả năng nặng, đo trước bằng benchmark hoặc profiling nhỏ thay vì đoán
+1. Define or update the contract schema first when the public API changes.
+2. Put reusable behavior in a service rather than directly in a route handler.
+3. Add persistence layers only when a concrete data-access requirement exists.
+4. Add matching tests under the corresponding test area.
+5. Measure potential hot paths before optimizing them.
+6. For agent or prompt features, define schema validation and failure behavior before prompt wording.

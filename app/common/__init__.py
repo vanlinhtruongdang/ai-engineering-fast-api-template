@@ -1,1 +1,1 @@
-"""Shared/common patterns placeholder."""
+"""Extension package for shared application components."""

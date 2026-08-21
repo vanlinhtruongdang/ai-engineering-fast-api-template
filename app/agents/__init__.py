@@ -1,1 +1,1 @@
-"""Agent-related patterns placeholder."""
+"""Extension package for projects that add agent contracts."""
