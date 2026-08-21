@@ -27,6 +27,8 @@ dev = [
     "httpx>=0.27,<1.0",
     "pytest>=8.3,<9.0",
     "pytest-asyncio>=0.24,<1.0",
+    "pytest-cov>=7.0,<8.0",
+    "pytest-timeout>=2.4,<3.0",
     "ruff>=0.6,<1.0",
     "ty",
 ]
@@ -38,8 +40,24 @@ src = ["app", "tests"]
 exclude = []
 
 [tool.ruff.lint]
-select = ["E4", "E7", "E9", "F", "I", "UP", "B", "C4", "SIM", "RUF"]
-ignore = ["E501"]
+select = [
+    "E",
+    "F",
+    "I",
+    "UP",
+    "B",
+    "C4",
+    "SIM",
+    "RUF",
+    "ANN",
+    "ARG",
+    "FAST",
+    "PERF",
+    "PT",
+    "RET",
+    "S",
+]
+ignore = []
 fixable = ["ALL"]
 unfixable = []
 
@@ -47,6 +65,12 @@ unfixable = []
 known-first-party = [
     "app",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+# Pytest assertions are the intended test contract mechanism.
+"tests/**/*.py" = ["S101"]
+# Uvicorn must bind all interfaces when the container publishes the service port.
+"app/core/config.py" = ["S104"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -66,6 +90,9 @@ exclude = [
 ]
 
 [tool.ty.rules]
+invalid-argument-type = "error"
+invalid-assignment = "error"
+invalid-return-type = "error"
 possibly-unresolved-reference = "error"
 unresolved-import = "error"
 
@@ -77,4 +104,24 @@ error-on-warning = true
 testpaths = ["tests"]
 pythonpath = ["."]
 asyncio_mode = "auto"
-addopts = "-ra"
+asyncio_default_fixture_loop_scope = "function"
+asyncio_default_test_loop_scope = "function"
+addopts = "-ra --strict-config --strict-markers --import-mode=importlib -m 'not integration and not acceptance and not live and not slow'"
+timeout = 30
+timeout_method = "thread"
+markers = [
+    "unit: pure logic without filesystem, database, or network boundaries",
+    "component: in-process API or service behavior with controlled dependencies",
+    "integration: requires local infrastructure such as a database or object store",
+    "acceptance: validates a versioned representative business dataset",
+    "live: requires explicitly authorized external credentials or providers",
+    "slow: intentionally exceeds the default suite duration expectation",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["app"]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true

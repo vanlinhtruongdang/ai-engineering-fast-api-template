@@ -76,6 +76,16 @@ class APISettings(BaseSettings):
         description="Endpoint that serves Scalar API reference UI.",
         validation_alias="SCALAR_PATH",
     )
+    docs_enabled: bool = Field(
+        default=True,
+        description="Whether OpenAPI and interactive documentation endpoints are exposed.",
+        validation_alias="DOCS_ENABLED",
+    )
+    request_id_header: str = Field(
+        default="X-Request-ID",
+        description="Response header carrying the request correlation identifier.",
+        validation_alias="REQUEST_ID_HEADER",
+    )
 
     server_host: str = Field(
         default="0.0.0.0",
@@ -129,6 +139,11 @@ class LoggingSettings(BaseSettings):
         description="Number of rotated backup files to retain.",
         ge=1,
         validation_alias="LOG_BACKUP_COUNT",
+    )
+    json_logs: bool = Field(
+        default=False,
+        description="Emit JSON log lines for machine-readable production logs.",
+        validation_alias="LOG_JSON",
     )
 
 

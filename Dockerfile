@@ -1,5 +1,7 @@
 FROM python:3.12-slim-bookworm AS base
 
+LABEL org.opencontainers.image.title="FastAPI Template"
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \

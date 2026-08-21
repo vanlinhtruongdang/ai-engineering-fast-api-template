@@ -2,6 +2,12 @@
 .git
 .gitignore
 .gitattributes
+.gitnexus
+.env*
+.venv
+.pytest_cache
+.ruff_cache
+reports
 
 
 # CI
