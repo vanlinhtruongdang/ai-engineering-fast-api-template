@@ -1,1 +1,1 @@
-"""Repository layer placeholder."""
+"""Extension package for persistence adapters."""

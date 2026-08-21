@@ -1,0 +1,8 @@
+{
+  "analyze": {
+    "name": "fastapi_template",
+    "pdg": true,
+    "skipAgentsMd": true,
+    "skipSkills": true
+  }
+}
