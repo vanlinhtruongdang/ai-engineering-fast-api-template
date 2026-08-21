@@ -1,15 +1,15 @@
-from httpx import ASGITransport, AsyncClient
+from httpx import ASGITransport, AsyncClient, Response
 
 from app.main import app
 
 
-async def request(method: str, path: str, headers: dict[str, str] | None = None):
+async def request(method: str, path: str, headers: dict[str, str] | None = None) -> Response:
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         return await client.request(method, path, headers=headers)
 
 
-async def get(path: str):
+async def get(path: str) -> Response:
     return await request("GET", path)
 
 
