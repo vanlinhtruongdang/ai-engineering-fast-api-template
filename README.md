@@ -1,56 +1,57 @@
 # FastAPI Template
 
-Template FastAPI dùng làm nền cho các backend service về sau. Cấu trúc này ưu tiên:
+A reusable FastAPI foundation for backend services. It provides a small production-oriented core and documents extension paths instead of committing unused application layers.
 
-- Bám convention của FastAPI
-- Giữ layout rõ ràng, dễ mở rộng
-- Tách config, API, service, schema, test thành các lớp riêng
-- Dùng layout canonical với `app/` ở root
-- Giữ sẵn một số package placeholder cho các pattern mở rộng về sau
+## Quick start
 
-## Layout
+```bash
+uv sync
+uv run python -m app.main
+```
+
+The API is available at `http://localhost:1114`; interactive documentation is at `/docs` and `/scalar` in development.
+
+```bash
+scripts/test-suite.sh default
+```
+
+Run the containerized development service with:
+
+```bash
+docker compose --env-file .env.dev -f docker-compose.dev.yml up --build
+```
+
+## Repository layout
 
 ```text
 app/
-├── __init__.py              # App package marker
-├── main.py                  # Entry point khởi động app
-├── api/
-│   ├── app.py               # App factory
-│   ├── dependencies.py      # Shared dependencies
-│   └── v1/
-│       ├── router.py        # Version router
-│       └── endpoints/       # FastAPI convention cho route modules
-├── core/                    # Config, logging, nền tảng hệ thống
-├── schemas/                 # Pydantic schemas
-├── services/                # Business logic
-├── repositories/            # Repository placeholder
-├── models/                  # ORM placeholder
-├── db/                      # DB helper placeholder
-├── utils/                   # Utility placeholder
-├── common/                  # Shared/common placeholder
-├── pipelines/               # Pipeline placeholder
-└── agents/                  # Agent placeholder
+  api/        HTTP application factory, routers, and dependencies
+  core/       Settings, logging, middleware, and infrastructure helpers
+  schemas/    Pydantic request and response contracts
+  services/   Reusable business behavior
+tests/        Unit and component tests mirroring application areas
+scripts/      Repeatable quality, test, and GitNexus commands
+.agents/      Contributor and coding-agent conventions
 ```
 
-## Conventions
+Create `repositories/`, `models/`, and `db/` only when a persistence adapter is needed. Create `agents/` or `pipelines/` only when the project has a concrete agent or multi-step processing contract.
 
-- `app/api/v1/endpoints/`: nơi đặt module route theo convention phổ biến của FastAPI
-- `app/api/v1/router.py`: gom các endpoints theo version
-- `app/core/`: giữ các cấu hình, logging, security, database helpers
-- `app/services/`: chứa business logic, không để route xử lý trực tiếp
-- `app/schemas/`: chứa Pydantic models cho request/response
+## Quality commands
 
-## Development
+```bash
+uv run ruff format --check
+uv run ruff check
+uv run ty check
+scripts/test-suite.sh default
+scripts/test-report.sh default
+```
 
-- Cài dependency: `uv sync`
-- Chạy app: `uv run python -m app.main`
-- Chạy test: `uv run pytest`
+`default` runs local unit and component tests. `integration`, `acceptance`, and `live` lanes are opt-in and are intended for projects that add their matching infrastructure or credentials.
 
-## Template Notes
+## Configuration
 
-- Cấu trúc hiện tại ưu tiên tính rõ ràng và khả năng mở rộng hơn là tối giản số lượng thư mục.
-- Các package placeholder trong `app/` được giữ lại có chủ đích để template cover nhiều pattern khác nhau.
+Copy `.env.example` to the environment file used by the selected Compose configuration. The template reads `ENV_FILE` first and defaults to `.env.dev`.
 
-## Tài liệu chi tiết
+Development defaults keep API documentation available. Production settings must provide explicit `CORS_ALLOW_ORIGINS` and should disable public documentation unless it is intentionally exposed.
 
-- Xem thêm: [docs/fastapi-template-architecture.md](/home/linhtdv/fpt-work/coding-template/fast-api/docs/fastapi-template-architecture.md)
+See [the architecture guide](docs/fastapi-template-architecture.md) for boundaries, extension paths, health endpoints, and operational conventions.

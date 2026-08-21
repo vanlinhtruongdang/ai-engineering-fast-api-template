@@ -208,6 +208,9 @@ tempCodeRunnerFile.py
 # Ruff stuff:
 .ruff_cache/
 
+# Local GitNexus index and analysis cache
+.gitnexus/
+
 # PyPI configuration file
 .pypirc
 
