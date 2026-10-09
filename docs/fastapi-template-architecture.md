@@ -28,7 +28,7 @@ tests/
 
 ## Request flow
 
-The application factory loads settings, configures middleware, and mounts the versioned router. An endpoint validates its request and delegates behavior to a service. Services return contract objects or raise typed application errors; the API layer renders the stable response shape.
+The application factory loads settings, configures middleware, and mounts the versioned router. An endpoint handles HTTP input and delegates reusable behavior to a service. The current health service returns a `HealthResponse`; projects adding error paths must define their status codes and response contracts at the API boundary.
 
 ## Health and readiness
 
