@@ -21,6 +21,7 @@ Before analyzing, planning, editing, reviewing, or testing this repository:
 | Tests, fixtures, coverage, or test reports | `.agents/testing-guidelines.md` |
 | Performance-sensitive changes | `.agents/performance-guidelines.md` |
 | Agent, prompt, or workflow design | `.agents/agent-design-principles.md` |
+| Documentation diagrams or Draw.io assets | `.agents/diagram-guidelines.md` |
 | Git operations or commits | `.agents/git-conventions.md` |
 | Implementation and final verification | `.agents/workflow-checklist.md` |
 
