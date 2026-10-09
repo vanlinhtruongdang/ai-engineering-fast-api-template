@@ -54,4 +54,4 @@ Copy `.env.example` to the environment file used by the selected Compose configu
 
 Development defaults keep API documentation available. Production settings must provide explicit `CORS_ALLOW_ORIGINS` and should disable public documentation unless it is intentionally exposed.
 
-See [the architecture guide](docs/fastapi-template-architecture.md) for boundaries, extension paths, health endpoints, and operational conventions.
+See [the architecture guide](docs/fastapi-template-architecture.md) for boundaries, extension paths, health endpoints, and operational conventions. See the [diagram assets](assets/diagrams/README.md) for a reusable Draw.io component palette; agent rules live in [`.agents/diagram-guidelines.md`](.agents/diagram-guidelines.md).
