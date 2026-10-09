@@ -1,37 +1,41 @@
-# Evidence and Scope Control
+# Evidence and scope control
 
-Apply this guide to code exploration, implementation, refactoring, and review.
+Use this guide whenever an agent explores, changes, reviews, or describes the repository. It prevents a plausible guess from becoming a project rule.
 
-## Evidence first
+## Classify claims
 
-Classify material conclusions as one of the following:
+- **Fact:** supported by the current user request, source, configuration, schema, test, or command output. Name the supporting file or observed result when the claim matters.
+- **Assumption:** plausible but unverified. Mark it and verify it when cheap; do not turn it into a requirement or shipped capability.
+- **Decision:** the selected way to satisfy the task. State the ownership boundary and any material tradeoff.
 
-- **Fact**: verified from the user request, current source, schema, test, configuration, or command output.
-- **Assumption**: plausible but unverified; state it explicitly and verify it when cheap.
-- **Decision**: a chosen implementation approach, supported by facts and any remaining assumptions.
+When sources disagree, use this order: explicit user instruction; current public contract and tests; current source and configuration; accepted architecture decision; current documentation; earlier conversation or memory. Investigate apparent disagreement before changing a contract. A failing test may expose a stale test or a regression; inspect both before choosing.
 
-When sources disagree, use this priority order: explicit user request, current public contract and tests, current source, architecture decisions, documentation, then prior conversation or memory. Do not present an assumption as a fact.
+Examples of evidence boundaries in this template:
 
-## Scope budget
+| Observation | Supported conclusion | Conclusion that still needs evidence |
+| --- | --- | --- |
+| `get_readiness_status()` returns `ok` | Baseline readiness is green without external checks | A future database or provider is healthy |
+| `app/agents/__init__.py` exists | The extension package is importable | An AI agent or provider integration exists |
+| `scripts/verify.sh` passes | Configured Ruff, Ty, and default local tests passed | Integration, live-provider, or production behavior passed |
+| GitNexus returns no affected symbols | No affected symbols were reported by that index/query | No caller, contract, or undocumented dependency exists |
 
-- Every changed file or behavior must map directly to a user requirement, accepted plan item, regression, or verification requirement.
-- Do not add a dependency, abstraction, package, workflow state, prompt fragment, tool, or retrieval layer without a concrete consumer and acceptance case.
-- Record adjacent cleanup or possible enhancements as follow-up work instead of silently expanding the active change.
-- Keep small tasks to one cohesive concern. If scope must expand, state the reason and recheck the affected contract and impact.
+## Set a change boundary
 
-## Stop conditions
+1. Write down the requested outcome and its observable acceptance condition.
+2. Identify the responsible layer and every affected caller, public schema, fixture, configuration, document, and verification command. Search for references before changing a shared symbol.
+3. Add or change only files that serve that outcome, a necessary regression fix, or its verification. Preserve existing work outside the boundary, including untracked files and environment files.
+4. If the boundary expands, explain which newly discovered contract requires it. Record unrelated cleanup as a follow-up instead of slipping it into the change.
 
-Stop and ask for direction when a required source of truth cannot be read, a material contract is ambiguous, a needed action requires new authority, or two high-priority sources conflict. If GitNexus is unavailable, use static source inspection where sufficient and report the reduced confidence; never invent graph findings.
+Do not introduce a dependency, service, abstraction, workflow state, prompt fragment, or config option without a current consumer and acceptance case. Empty template packages are not evidence that an implementation is needed.
 
-## Evidence-bound handoff
+For a public API change, the boundary normally includes route, schema, service, API tests, and README or reference docs that describe the contract. For a new setting, inspect `app/core/config.py`, `.env.example`, selected Compose files, tests that isolate environment variables, and documentation. Add only the parts the actual change affects.
 
-Report results using only claims supported by evidence. Distinguish targeted checks from the default suite, full integration suite, and checks that were not run. Use this compact format when relevant:
+## Handle uncertainty and blocked work
 
-```text
-Completed: <implemented behavior>
-Evidence: <commands, tests, or inspected contract>
-Limitation: <what was not verified or remains uncertain>
-Deferred: <out-of-scope follow-up, if any>
-```
+Do not infer a feature from a package name, diagram, old README, or green lint result. Say what you inspected and what it proves. If a required source cannot be read, a public or security contract is ambiguous, or an action needs new authority, stop the dependent action and request the missing input. Continue independent work when possible.
 
-Do not request or reveal private chain-of-thought. Provide concise conclusions, rationale, and evidence instead.
+If a tool is unavailable, use other evidence only where it supports the same conclusion and report the limitation. A GitNexus miss does not prove there are no callers; no collected integration tests does not prove integration behavior works.
+
+## Handoff
+
+Report the changed behavior or artifact, the relevant files and checks, and any material unverified boundary. Distinguish a focused check, `scripts/verify.sh`, infrastructure test lane, and manual inspection. Do not label work production ready without the corresponding system and operational evidence. Never reveal private reasoning or credentials; give concise, inspectable rationale.
