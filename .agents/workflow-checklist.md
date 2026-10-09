@@ -1,37 +1,27 @@
-# Working Checklist
+# Working checklist
 
-## Before coding
+Use this sequence for implementation and final handoff. Subject-specific rules live in the other `.agents/` guides; this checklist ties them to the task flow.
 
-- Read the exact files in scope and define the change boundary.
-- Classify material conclusions as facts, assumptions, or decisions and resolve conflicting sources of truth before editing.
-- Identify the source of truth: schema, service, configuration, documentation, or test.
-- Confirm the relevant FastAPI conventions.
-- Run `git status --short`, preserve unrelated work, then run GitNexus impact analysis before changing an existing function, class, or method.
-- For agent work, define input, output, failure, and audit contracts first.
+## Before editing
 
-## While coding
+1. Follow the startup in `AGENTS.md`: read the guide map and GitNexus rules, run `git status --short`, then read the matching guides.
+2. Define the requested outcome, acceptance condition, and affected files. Identify the source of truth for each public contract. Separate verified facts from assumptions and decisions.
+3. Trace the current flow through entry point, callers, schemas, settings, tests, and deployment configuration as needed. Before editing an existing function, class, or method, refresh a stale GitNexus index and run upstream impact analysis.
+4. Confirm that new infrastructure, dependencies, options, or extension code have a current consumer. Preserve out-of-scope work and secret-bearing files.
 
-- Keep changes small and use names that describe their purpose.
-- Keep template placeholder packages intact; do not add implementation, aliases, or infrastructure without a consumer.
-- Confirm a potential hot path is measured before optimizing it.
-- Prefer deterministic validation and reusable contracts over prompt-only behavior.
-- Keep adjacent cleanup and speculative improvements out of scope unless they map to an accepted requirement.
+## While editing
+
+- Change the layer that owns the invariant. Keep validation, authorization, errors, and data-loss protection intact.
+- Update affected callers, tests, fixtures, configuration, documentation, and examples as one contract change. Avoid broad formatting or unrelated cleanup.
+- For agent work, define input, output, failure, permission, and audit contracts before prompt text. For diagrams, deliver the editable source, reading guide, screenshot, and references together.
+- If a new finding expands the task, explain the reason and recheck scope and impact before editing more files.
 
 ## Before finishing
 
-```bash
-scripts/verify.sh
-```
+1. Review the working-tree diff and `git status --short`. Check links, commands, examples, and claims in changed documentation against their sources.
+2. Run the smallest checks that cover the actual change. For Python changes, `scripts/verify.sh` is the default gate; use the lane-specific scripts when the feature requires more. Documentation-only edits need link/claim review and `git diff --check`; do not describe them as runtime-tested.
+3. Record any relevant benchmark with its workload if performance was changed. Recheck public docs when API or settings contracts changed.
+4. Report the completed artifact or behavior, evidence, and material unverified boundary. Do not claim broader verification than was run.
+5. If committing, stage only task files, inspect the staged diff, run `gitnexus detect_changes --repo fastapi_template --scope staged`, then refresh the index after the commit.
 
-- Record performance measurements when relevant.
-- Recheck public documentation after a public contract changes.
-- Review `git status` and `git diff`.
-- Distinguish completed work, evidence, limitations, and deferred follow-ups in the handoff.
-- Run `gitnexus detect_changes --repo fastapi_template --scope staged` before commit, then refresh the index after commit.
-
-## Containers
-
-- Use official base images and non-root runtime users.
-- Do not bake secrets or runtime environment files into images.
-- Keep development and production Compose configurations explicit.
-- Avoid `container_name` unless it is a concrete deployment requirement.
+For container changes, preserve non-root runtime, avoid baking secrets into images, and review the affected development, staging, and production Compose files. Add an environment-specific value only when the runtime contract needs it.

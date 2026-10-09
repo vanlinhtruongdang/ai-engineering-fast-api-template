@@ -1,0 +1,287 @@
+{
+  "bun": {
+    "source": "bun.sh",
+    "sourceType": "well-known",
+    "sourceUrl": "https://bun.sh/docs/.well-known/skills/bun/SKILL.md"
+  },
+  "deep-agents-core": {
+    "skillPath": "config/skills/deep-agents-core/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "deep-agents-memory": {
+    "skillPath": "config/skills/deep-agents-memory/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "deep-agents-orchestration": {
+    "skillPath": "config/skills/deep-agents-orchestration/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "developing-with-streamlit": {
+    "skillPath": "developing-with-streamlit/SKILL.md",
+    "source": "streamlit/agent-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/streamlit/agent-skills.git"
+  },
+  "docker-expert": {
+    "skillPath": "skills/docker-expert/SKILL.md",
+    "source": "sickn33/antigravity-awesome-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/sickn33/antigravity-awesome-skills.git"
+  },
+  "documentation-writer": {
+    "skillPath": "skills/documentation-writer/SKILL.md",
+    "source": "github/awesome-copilot",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/github/awesome-copilot.git"
+  },
+  "docx": {
+    "pluginName": "document-skills",
+    "skillPath": "skills/docx/SKILL.md",
+    "source": "anthropics/skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/anthropics/skills.git"
+  },
+  "ecosystem-primer": {
+    "skillPath": "config/skills/ecosystem-primer/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "fastapi-templates": {
+    "skillPath": "plugins/api-scaffolding/skills/fastapi-templates/SKILL.md",
+    "source": "wshobson/agents",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/wshobson/agents.git"
+  },
+  "git-commit": {
+    "skillPath": "skills/git-commit/SKILL.md",
+    "source": "github/awesome-copilot",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/github/awesome-copilot.git"
+  },
+  "gitnexus-cli": {
+    "skillPath": ".claude/skills/gitnexus-cli/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-debugging": {
+    "skillPath": ".claude/skills/gitnexus-debugging/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-exploring": {
+    "skillPath": ".claude/skills/gitnexus-exploring/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-guide": {
+    "skillPath": ".claude/skills/gitnexus-guide/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-impact-analysis": {
+    "skillPath": ".claude/skills/gitnexus-impact-analysis/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-lfg": {
+    "skillPath": ".claude/skills/gitnexus-lfg/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-pdg-query": {
+    "skillPath": ".claude/skills/gitnexus/gitnexus-pdg-query/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-plan": {
+    "skillPath": ".claude/skills/gitnexus-plan/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-pr-swarm-review": {
+    "skillPath": ".claude/skills/gitnexus-pr-swarm-review/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-refactoring": {
+    "skillPath": ".claude/skills/gitnexus-refactoring/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-review": {
+    "skillPath": ".claude/skills/gitnexus-review/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-taint-analysis": {
+    "skillPath": ".claude/skills/gitnexus/gitnexus-taint-analysis/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "gitnexus-work": {
+    "skillPath": ".claude/skills/gitnexus-work/SKILL.md",
+    "source": "abhigyanpatwari/gitnexus",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
+  },
+  "langchain-dependencies": {
+    "skillPath": "config/skills/langchain-dependencies/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langchain-fundamentals": {
+    "skillPath": "config/skills/langchain-fundamentals/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langchain-middleware": {
+    "skillPath": "config/skills/langchain-middleware/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langchain-rag": {
+    "skillPath": "config/skills/langchain-rag/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langfuse": {
+    "skillPath": "skills/langfuse/SKILL.md",
+    "source": "langfuse/skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langfuse/skills.git"
+  },
+  "langgraph-cli": {
+    "skillPath": "config/skills/langgraph-cli/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langgraph-fundamentals": {
+    "skillPath": "config/skills/langgraph-fundamentals/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langgraph-human-in-the-loop": {
+    "skillPath": "config/skills/langgraph-human-in-the-loop/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "langgraph-persistence": {
+    "skillPath": "config/skills/langgraph-persistence/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "managed-deep-agents": {
+    "skillPath": "config/skills/managed-deep-agents/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "pdf": {
+    "pluginName": "document-skills",
+    "skillPath": "skills/pdf/SKILL.md",
+    "source": "anthropics/skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/anthropics/skills.git"
+  },
+  "pptx": {
+    "pluginName": "document-skills",
+    "skillPath": "skills/pptx/SKILL.md",
+    "source": "anthropics/skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/anthropics/skills.git"
+  },
+  "prompt-engineering-patterns": {
+    "skillPath": "plugins/llm-application-dev/skills/prompt-engineering-patterns/SKILL.md",
+    "source": "wshobson/agents",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/wshobson/agents.git"
+  },
+  "python-performance-optimization": {
+    "skillPath": "plugins/python-development/skills/python-performance-optimization/SKILL.md",
+    "source": "wshobson/agents",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/wshobson/agents.git"
+  },
+  "python-project-structure": {
+    "skillPath": "plugins/python-development/skills/python-project-structure/SKILL.md",
+    "source": "wshobson/agents",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/wshobson/agents.git"
+  },
+  "python-testing-patterns": {
+    "skillPath": "plugins/python-development/skills/python-testing-patterns/SKILL.md",
+    "source": "wshobson/agents",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/wshobson/agents.git"
+  },
+  "refactor": {
+    "skillPath": "skills/refactor/SKILL.md",
+    "source": "github/awesome-copilot",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/github/awesome-copilot.git"
+  },
+  "ruff": {
+    "skillPath": "plugins/astral/skills/ruff/SKILL.md",
+    "source": "astral-sh/claude-code-plugins",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/astral-sh/claude-code-plugins.git"
+  },
+  "swarm": {
+    "skillPath": "config/skills/swarm/SKILL.md",
+    "source": "langchain-ai/langchain-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "ty": {
+    "skillPath": "plugins/astral/skills/ty/SKILL.md",
+    "source": "astral-sh/claude-code-plugins",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/astral-sh/claude-code-plugins.git"
+  },
+  "uv": {
+    "skillPath": "plugins/astral/skills/uv/SKILL.md",
+    "source": "astral-sh/claude-code-plugins",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/astral-sh/claude-code-plugins.git"
+  },
+  "vikunja-vja": {
+    "skillPath": "vikunja-vja/SKILL.md",
+    "source": "akhy/agent-skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/akhy/agent-skills.git"
+  },
+  "xlsx": {
+    "pluginName": "document-skills",
+    "skillPath": "skills/xlsx/SKILL.md",
+    "source": "anthropics/skills",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/anthropics/skills.git"
+  }
+}
