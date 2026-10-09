@@ -2,6 +2,13 @@
 
 Git history should let another contributor review one concern at a time. Repository changes begin with `git status --short`; existing staged, unstaged, and untracked work belongs to its owner unless the active task includes it.
 
+## Branch flow
+
+- Start change branches from the current `dev` and open their pull requests into `dev`.
+- Promote validated `dev` to `main` through a pull request. Pull requests into `main` must come from this repository's `dev` branch; the required `quality` check enforces this.
+- Bring Dependabot version updates into `dev` first, then promote them with the same `dev` to `main` pull request flow.
+- Dependabot security updates, if enabled, still target the default `main` branch because GitHub does not route them with `target-branch`.
+
 ## Branches and commits
 
 - Use a short purpose-based branch name such as `feat/<topic>`, `fix/<topic>`, `refactor/<topic>`, `docs/<topic>`, or `chore/<topic>` when a branch is requested or needed to isolate a change. Honor an explicitly requested base branch; inspect ancestry and the worktree before switching.
