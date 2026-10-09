@@ -18,6 +18,7 @@ This guide applies to developers and coding agents working in this FastAPI templ
 - [Testing guidelines](testing-guidelines.md)
 - [GitNexus guidelines](gitnexus-guidelines.md)
 - [Evidence and scope control](evidence-and-scope.md)
+- [Evidence-led writing harness](ai-writing-harness.md)
 - [Diagram guidelines](diagram-guidelines.md)
 - [Agent design principles](agent-design-principles.md)
 - [Working checklist](workflow-checklist.md)
