@@ -20,7 +20,7 @@ If a shared file contains another contributor's edits, use selective staging for
 ## Safe staging sequence
 
 1. Review `git status --short` and the relevant working-tree diff. Identify task files and any pre-existing edits in shared files.
-2. Stage only the intended paths or hunks. Do not stage `.env.*`, credentials, caches, bytecode, generated reports, or unrelated user work.
+2. Stage only the intended paths or hunks. Reviewed `.env.*` template files containing defaults and explicit placeholders may be versioned. Never stage real credentials, private `.env` or `.env.*.local` overrides, caches, bytecode, generated reports, or unrelated user work.
 3. Inspect the staged diff and run `git diff --cached --check`.
 4. Run `gitnexus detect_changes --repo fastapi_template --scope staged` before committing and reconcile its results with source and test evidence.
 5. Commit with a focused Conventional Commit message. After commit, refresh GitNexus with `scripts/gitnexus-refresh.sh` and check its status.
