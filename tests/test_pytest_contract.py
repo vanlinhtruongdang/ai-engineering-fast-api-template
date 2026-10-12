@@ -10,6 +10,7 @@ from tests.pytest_contract import inferred_taxonomy_marker, resolved_taxonomy_ma
         ("tests/unit/test_settings.py", "unit"),
         ("tests/api/test_health.py", "component"),
         ("tests/services/test_health_service.py", "component"),
+        ("tests/mcp/test_http.py", "component"),
         ("tests/integration/test_database.py", "integration"),
     ],
 )

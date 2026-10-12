@@ -1,7 +1,11 @@
 import os
+import re
 from functools import lru_cache
+from ipaddress import IPv6Address
+from typing import Self
+from urllib.parse import urlsplit
 
-from pydantic import Field
+from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DEFAULT_ENV_FILE = os.getenv("ENV_FILE", ".env.dev")
@@ -147,6 +151,81 @@ class LoggingSettings(BaseSettings):
     )
 
 
+class MCPSettings(BaseSettings):
+    model_config = SettingsConfigDict(
+        env_file=DEFAULT_ENV_FILE,
+        env_file_encoding="utf-8",
+        extra="ignore",
+        hide_input_in_errors=True,
+    )
+
+    enabled: bool = Field(default=False, validation_alias="MCP_ENABLED")
+    bearer_token: SecretStr | None = Field(default=None, validation_alias="MCP_BEARER_TOKEN")
+    allowed_hosts: str = Field(
+        default="localhost,localhost:*,127.0.0.1,127.0.0.1:*,[::1],[::1]:*",
+        validation_alias="MCP_ALLOWED_HOSTS",
+    )
+    allowed_origins: str = Field(default="", validation_alias="MCP_ALLOWED_ORIGINS")
+
+    @model_validator(mode="after")
+    def validate_http_configuration(self) -> Self:
+        if self.enabled:
+            token = self.bearer_token.get_secret_value() if self.bearer_token is not None else ""
+            if len(token) < 32 or re.fullmatch(r"[A-Za-z0-9._~+/-]+=*", token) is None:
+                raise ValueError("MCP_BEARER_TOKEN must be at least 32 characters and use bearer-token characters")
+
+        hosts = [value.strip() for value in self.allowed_hosts.split(",") if value.strip()]
+        if not hosts:
+            raise ValueError("MCP_ALLOWED_HOSTS must contain at least one hostname")
+        for host in hosts:
+            candidate = host[:-1] + "1" if host.endswith(":*") else host
+            try:
+                parsed = urlsplit("//" + candidate)
+                hostname = parsed.hostname or ""
+                port = parsed.port
+                valid_name = re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?", hostname) is not None
+                if ":" in hostname:
+                    IPv6Address(hostname)
+                    valid_name = True
+                if (
+                    not valid_name
+                    or parsed.username is not None
+                    or parsed.password is not None
+                    or parsed.path
+                    or parsed.query
+                    or parsed.fragment
+                    or any(character in candidate for character in "*\\?#@ \t\r\n")
+                    or candidate.endswith(":")
+                    or port == 0
+                ):
+                    raise ValueError
+            except ValueError:
+                raise ValueError("MCP_ALLOWED_HOSTS must use hostnames with an optional port or :*") from None
+
+        for origin in (value.strip() for value in self.allowed_origins.split(",") if value.strip()):
+            try:
+                parsed = urlsplit(origin)
+                port = parsed.port
+                if (
+                    parsed.scheme not in {"http", "https"}
+                    or not parsed.hostname
+                    or parsed.username is not None
+                    or parsed.password is not None
+                    or parsed.path
+                    or parsed.query
+                    or parsed.fragment
+                    or any(character in origin for character in "*\\?#@ \t\r\n")
+                    or origin.endswith(":")
+                    or port == 0
+                ):
+                    raise ValueError
+            except ValueError:
+                raise ValueError(
+                    "MCP_ALLOWED_ORIGINS must use exact http(s) origins without paths or wildcards"
+                ) from None
+        return self
+
+
 @lru_cache
 def get_settings() -> APISettings:
     return APISettings()
@@ -157,9 +236,16 @@ def get_logging_settings() -> LoggingSettings:
     return LoggingSettings()
 
 
+@lru_cache
+def get_mcp_settings() -> MCPSettings:
+    return MCPSettings()
+
+
 __all__ = [
     "APISettings",
     "LoggingSettings",
+    "MCPSettings",
     "get_logging_settings",
+    "get_mcp_settings",
     "get_settings",
 ]

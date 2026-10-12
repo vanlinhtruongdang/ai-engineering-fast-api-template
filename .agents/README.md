@@ -5,7 +5,8 @@ This directory is the repository's coding and writing harness. It gives an agent
 ## What this template currently contains
 
 - `app/main.py` exposes the application and local server entry point; `app/api/app.py` creates the app, installs request ID and CORS middleware, owns lifespan, and mounts the API router.
-- `app/api/v1/` defines versioned HTTP routes. `app/schemas/` defines response contracts. `app/services/` owns the health behavior. `app/core/` owns settings, logging, and request context.
+- `app/api/v1/` defines versioned HTTP routes. `app/schemas/` defines response contracts. `app/services/` owns health and application metadata. `app/core/` owns settings, logging, and request context.
+- `app/mcp/` explicitly exposes shared services through the official MCP SDK v2. HTTP is opt-in at `/mcp/` with bearer and Host/Origin protection; `python -m app.mcp` runs stdio independently of FastAPI. Start with the [MCP quickstart](../docs/mcp/quickstart.md).
 - Root `/health` and `/ready` are probe endpoints; `/api/v1/health`, `/api/v1/health/ready`, and `/api/v1/` are versioned routes. The baseline readiness response is `ok` because no mandatory external dependency is configured.
 - `app/agents/`, `app/pipelines/`, `app/db/`, `app/models/`, `app/repositories/`, `app/common/`, and `app/utils/` are empty extension packages. Their names do not promise a database, agent runtime, model provider, or workflow engine.
 - `pyproject.toml`, `scripts/verify.sh`, `scripts/test-suite.sh`, and `.github/workflows/ci.yml` define the actual quality gates. `uv.lock` pins the current Python dependency resolution.
@@ -21,6 +22,7 @@ Read [the architecture guide](../docs/fastapi-template-architecture.md) for the 
 | [Testing](testing-guidelines.md) | Test taxonomy, fixtures, deterministic checks, coverage reports |
 | [Performance](performance-guidelines.md) | Measurements and performance-sensitive changes |
 | [Agent design](agent-design-principles.md) | AI agent, prompt, tool, and workflow contracts when a project adds them |
+| [MCP](mcp-guidelines.md) | Explicit capability registration, shared service/schema ownership, transports, authentication and client checks |
 | [GitNexus](gitnexus-guidelines.md) | Index lifecycle, impact queries, staged change review |
 | [Git conventions](git-conventions.md) | Branches, staging, commits, preserving work |
 | [Working checklist](workflow-checklist.md) | Task sequence and verification handoff |

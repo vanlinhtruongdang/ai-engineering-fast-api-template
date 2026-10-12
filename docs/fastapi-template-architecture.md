@@ -19,16 +19,33 @@ app/
     dependencies.py       Shared HTTP dependencies
     v1/                   Versioned router and endpoint modules
   core/                   Settings, logging, request context, infrastructure helpers
+  mcp/                    Explicit MCP adapters, HTTP auth and stdio entry point
   schemas/                Pydantic request and response contracts
   services/               Business behavior independent of HTTP transport
 tests/
   api/                    API contract and middleware tests
   services/               Service behavior tests
+  mcp/                    MCP protocol, security and local subprocess checks
 ```
 
 ## Request flow
 
 The application factory loads settings, configures middleware, and mounts the versioned router. An endpoint handles HTTP input and delegates reusable behavior to a service. The current health service returns a `HealthResponse`; projects adding error paths must define their status codes and response contracts at the API boundary.
+
+## MCP boundary
+
+`app/mcp/` exposes the health service as `get_health_status` and the shared
+metadata service as the JSON resource `app://info`. REST and MCP use the same
+schemas; `/api/v1/` retains its metadata fields. HTTP mounts at `/mcp/` only
+when enabled with valid bearer and Host/Origin configuration. The parent
+FastAPI lifespan owns the SDK session manager. Each factory creates a separate
+server; stdio uses the same capability factory without importing the HTTP app.
+
+The official SDK v2 owns protocol handling. The baseline uses stateless JSON
+responses for legacy HTTP clients and supports modern discovery. Shared-token
+access is limited to team-controlled internal clients. Read the
+[MCP architecture](mcp/architecture.md) and [operations reference](mcp/reference.md)
+before extending capabilities or deploying to a remote hostname.
 
 ## Health and readiness
 
