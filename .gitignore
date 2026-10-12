@@ -152,6 +152,8 @@ activemq-data/
 
 # Environments
 .env
+# Private overrides; .env.dev/.staging/.production/.example are versioned templates.
+.env.*.local
 .envrc
 .venv
 env/

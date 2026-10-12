@@ -7,7 +7,7 @@ The test system has one primary taxonomy marker per test. `tests/pytest_contract
 | Lane | Intended boundary | How to run |
 | --- | --- | --- |
 | `unit` | Pure logic without filesystem, database, or network boundaries | `scripts/test-suite.sh unit` |
-| `component` | In-process API or service behavior with controlled dependencies | `scripts/test-suite.sh component` |
+| `component` | In-process API/service behavior and controlled local CLI/MCP subprocesses | `scripts/test-suite.sh component` |
 | `integration` | Declared local infrastructure with isolated fixtures | `scripts/test-suite.sh integration` |
 | `acceptance` | Versioned representative business dataset | `scripts/test-suite.sh acceptance` |
 | `live` | External provider or credentials; run only with explicit authorization | `scripts/test-suite.sh live` |
@@ -16,10 +16,11 @@ The test system has one primary taxonomy marker per test. `tests/pytest_contract
 
 ## Write a useful check
 
-- Place tests near the matching application area. `tests/api/` exercises HTTP status, headers, validation, and response contracts; `tests/services/` exercises service behavior. Put pure functions under `tests/unit/` when that boundary exists.
+- Place tests near the matching application area. `tests/api/` exercises HTTP status, headers, validation, and response contracts; `tests/services/` exercises service behavior. `tests/mcp/` belongs to the component lane and checks discovery, typed results, HTTP security/lifecycle and real local stdio processes. Put pure functions under `tests/unit/` when that boundary exists.
 - Prefer deterministic inputs and explicit assertions about externally visible behavior. A regression check should fail for the reported bug and pass for the fix. Avoid tests that simply duplicate implementation branches or snapshot unstable text.
 - Keep tests independent of order, wall clock, ambient environment, and network unless their lane owns that dependency. Use fixtures with explicit scope and cleanup; do not share mutable state across tests.
-- The current `tests/conftest.py` removes known settings environment variables and selects `.env.dev` before tests import the app. When adding settings, update this isolation boundary and avoid reading developer secrets. HTTP component tests use `httpx.ASGITransport` in process.
+- `tests/conftest.py` removes known settings environment variables and selects `os.devnull` as the environment file before importing the app, so developer secrets cannot change the suite. When adding settings, update this isolation boundary. Clear settings caches after environment overrides and restore them on fixture teardown. REST component tests use `httpx.ASGITransport`; SDK v2 MCP clients use `httpx2.ASGITransport`. Enter the parent app lifespan explicitly for MCP tests; ASGI transports do not start it.
+- MCP tests cover both `auto` (`2026-07-28`) and `legacy` (`2025-11-25`) clients, bearer failures, Host/Origin rejection, allowed preflight, request IDs, settings validation, independent factories, shutdown and startup failure. Stdio subprocess tests use the locked interpreter, isolated settings and bounded cleanup; stdout must contain protocol only. They require local process/pipe support rather than external credentials.
 - Mark exceptions to path inference explicitly, with exactly one primary marker. Do not weaken assertions or move tests into a different lane to make a failing default suite pass.
 
 ## Coverage and results

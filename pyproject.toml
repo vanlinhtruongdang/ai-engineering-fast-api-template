@@ -16,6 +16,7 @@ authors = [{ name = "FastAPI Template Maintainers" }]
 dependencies = [
     "colorlog>=6.8,<7.0",
     "fastapi>=0.142.2,<1.0",
+    "mcp>=2.3.0,<3.0",
     "pydantic>=2.13.5,<3.0",
     "pydantic-settings>=2.4,<3.0",
     "scalar-fastapi>=1.9.1,<2.0",
@@ -62,8 +63,10 @@ fixable = ["ALL"]
 unfixable = []
 
 [tool.ruff.lint.isort]
+known-third-party = ["mcp"]
 known-first-party = [
     "app",
+    "examples",
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -81,7 +84,7 @@ skip-magic-trailing-comma = false
 python-version = "3.12"
 
 [tool.ty.src]
-include = ["app/**/*.py", "tests/**/*.py"]
+include = ["app/**/*.py", "tests/**/*.py", "examples/**/*.py"]
 exclude = [
     ".venv/**",
     "build/**",
