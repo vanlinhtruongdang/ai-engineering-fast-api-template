@@ -16,6 +16,7 @@ These are the baseline conventions for this template and for projects that retai
 | `app/main.py` | Importable `app` and local `python -m app.main` entry point |
 | `app/api/app.py` | App factory, lifespan, middleware, global probe routes, router mount, documentation exposure |
 | `app/api/v1/router.py` and `endpoints/` | Versioned route composition, HTTP inputs and outputs |
+| `app/mcp/` | Explicit MCP adapters, HTTP bearer boundary and independent stdio entry point; see [MCP rules](mcp-guidelines.md) |
 | `app/api/dependencies.py` | Shared HTTP dependencies where FastAPI injection helps |
 | `app/schemas/` | Pydantic request and response contracts |
 | `app/services/` | Reusable behavior independent of HTTP transport |
@@ -33,6 +34,13 @@ For a new endpoint, define the request/response contract, add a route under the 
 
 ## Settings and deployment
 
-`APISettings` and `LoggingSettings` use `ENV_FILE` (default `.env.dev`) as their file source, with environment values taking precedence through Pydantic Settings. The file path is selected when `app/core/config.py` is imported, so set `ENV_FILE` before importing the app. `get_settings()` and `get_logging_settings()` are cached; tests that change values must clear or override those caches deliberately and restore state afterward. Add a setting only for a real runtime choice and update `.env.example`, deployment files, and docs that depend on it.
+`APISettings`, `LoggingSettings` and `MCPSettings` use `ENV_FILE` (default `.env.dev`) as their file source, with environment values taking precedence through Pydantic Settings. The file path is selected when `app/core/config.py` is imported, so set `ENV_FILE` before importing the app. `get_settings()`, `get_logging_settings()` and `get_mcp_settings()` are cached; tests that change values must clear or override those caches deliberately and restore state afterward. Add a setting only for a real runtime choice and update `.env.example`, deployment files, and docs that depend on it.
 
 Production `create_app()` rejects wildcard `CORS_ALLOW_ORIGINS`; production deployment must name trusted origins. `DOCS_ENABLED` controls OpenAPI and both interactive documentation UIs. Keep development convenience settings from leaking into public deployments. Never commit real secrets or expose them in examples.
+
+The versioned `.env.dev`, `.env.staging`, `.env.production` and `.env.example`
+files are complete configuration templates. Defaults and explicit placeholders
+may be published; deployment origins, Host values and real credentials are
+agreed with DevOps and injected at deployment. `.env` and `.env.*.local` are
+private overrides. Keep placeholders visibly distinct from usable credentials;
+the MCP token placeholder is invalid when HTTP is enabled.

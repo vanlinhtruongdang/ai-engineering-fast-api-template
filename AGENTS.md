@@ -16,6 +16,7 @@ These instructions apply to every file in this repository. `AGENTS.md` is the en
 | Tests, fixtures, coverage, test reports | [Testing guidelines](.agents/testing-guidelines.md) |
 | Measured performance work | [Performance guidelines](.agents/performance-guidelines.md) |
 | Agents, prompts, tools, AI workflows | [Agent design principles](.agents/agent-design-principles.md) |
+| MCP tools, resources, prompts, transports, auth, clients | [MCP guidelines](.agents/mcp-guidelines.md), [Python and FastAPI conventions](.agents/python-fastapi-conventions.md), [Testing guidelines](.agents/testing-guidelines.md) |
 | Documentation, reviews, natural-language deliverables | [Evidence-led writing harness](.agents/ai-writing-harness.md) |
 | Diagrams and Draw.io assets | [Diagram guidelines](.agents/diagram-guidelines.md) |
 | Branches, staging, commits, or other Git operations | [Git conventions](.agents/git-conventions.md) |
