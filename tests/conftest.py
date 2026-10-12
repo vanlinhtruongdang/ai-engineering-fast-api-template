@@ -26,9 +26,13 @@ _SETTINGS_ENVIRONMENT_VARIABLES = (
     "LOG_MAX_BYTES",
     "LOG_BACKUP_COUNT",
     "LOG_JSON",
+    "MCP_ENABLED",
+    "MCP_BEARER_TOKEN",
+    "MCP_ALLOWED_HOSTS",
+    "MCP_ALLOWED_ORIGINS",
 )
 
 for environment_variable in _SETTINGS_ENVIRONMENT_VARIABLES:
     os.environ.pop(environment_variable, None)
 
-os.environ["ENV_FILE"] = ".env.dev"
+os.environ["ENV_FILE"] = os.devnull

@@ -6,7 +6,7 @@ from pathlib import PurePath
 import pytest
 
 TAXONOMY_MARKERS = frozenset({"unit", "component", "integration", "acceptance", "live"})
-_COMPONENT_DIRECTORIES = frozenset({"api", "services", "cli", "pipelines", "agents"})
+_COMPONENT_DIRECTORIES = frozenset({"api", "services", "cli", "pipelines", "agents", "mcp"})
 
 
 def inferred_taxonomy_marker(path: PurePath) -> str:
