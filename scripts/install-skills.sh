@@ -3,10 +3,23 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname -- "$SCRIPT_DIR")"
-LOCK_FILE="${1:-$ROOT_DIR/skills-lock.json}"
+CATALOG_FILE="${1:-$ROOT_DIR/skills-catalog.json}"
 
-if [[ ! -f "$LOCK_FILE" ]]; then
-  printf 'Skill lockfile not found: %s\n' "$LOCK_FILE" >&2
+for tool in jq bunx; do
+  if ! command -v "$tool" >/dev/null 2>&1; then
+    printf 'Required command not found: %s\n' "$tool" >&2
+    exit 1
+  fi
+done
+
+# The CLI writes skills-lock.json in its working directory.
+if [[ "$(basename -- "$CATALOG_FILE")" == "skills-lock.json" ]]; then
+  printf 'Use a source catalog named differently from skills-lock.json (reserved for CLI output).\n' >&2
+  exit 1
+fi
+
+if [[ ! -f "$CATALOG_FILE" ]]; then
+  printf 'Skill catalog not found: %s\n' "$CATALOG_FILE" >&2
   exit 1
 fi
 
@@ -22,21 +35,28 @@ if ! jq -e '
        (.value.sourceUrl | type == "string" and length > 0))
     )
   )
-' "$LOCK_FILE" >/dev/null; then
-  printf 'Invalid skill lockfile: expected a map of skills with supported source fields.\n' >&2
+' "$CATALOG_FILE" >/dev/null; then
+  printf 'Invalid skill catalog: expected a map of skills with supported source fields.\n' >&2
   exit 1
 fi
 
-while IFS= read -r skill; do
-  source_type="$(jq -r --arg skill "$skill" '.[$skill].sourceType' "$LOCK_FILE")"
+entries="$(jq -r 'to_entries[] | [.key, (if .value.sourceType == "github" then .value.source else .value.sourceUrl end)] | @tsv' "$CATALOG_FILE")"
+failed=()
+installed=0
+cd "$ROOT_DIR"
 
-  if [[ "$source_type" == "github" ]]; then
-    source="$(jq -r --arg skill "$skill" '.[$skill].source' "$LOCK_FILE")"
-    package="$source@$skill"
-  else
-    package="$(jq -r --arg skill "$skill" '.[$skill].sourceUrl' "$LOCK_FILE")"
-  fi
-
+while IFS=$'\t' read -r skill package; do
   printf 'Installing %s from %s\n' "$skill" "$package"
-  bunx --yes skills add "$package" -y
-done < <(jq -r 'keys[]' "$LOCK_FILE")
+  if bunx --yes skills add "$package" --skill "$skill" --agent codex claude-code --full-depth -y </dev/null; then
+    installed=$((installed + 1))
+  else
+    failed+=("$skill")
+    printf 'Failed to install %s; continuing.\n' "$skill" >&2
+  fi
+done <<< "$entries"
+
+printf 'Installed: %s; failed: %s\n' "$installed" "${#failed[@]}"
+if (( ${#failed[@]} > 0 )); then
+  printf 'Failed skill: %s\n' "${failed[@]}" >&2
+  exit 1
+fi

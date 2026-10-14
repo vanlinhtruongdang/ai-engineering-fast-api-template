@@ -2,7 +2,82 @@
   "bun": {
     "source": "bun.sh",
     "sourceType": "well-known",
-    "sourceUrl": "https://bun.sh/docs/.well-known/skills/bun/SKILL.md"
+    "sourceUrl": "https://bun.sh/docs"
+  },
+  "cavecrew": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-commit": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-compress": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-discover": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-evidence-review": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-explore": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-help": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-learn": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-manage": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-optimize": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-review": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-setup": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "caveman-stats": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "code-simplifier": {
+    "source": "rtk-ai/rtk",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
   },
   "deep-agents-core": {
     "skillPath": "config/skills/deep-agents-core/SKILL.md",
@@ -22,11 +97,10 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
   },
-  "developing-with-streamlit": {
-    "skillPath": "developing-with-streamlit/SKILL.md",
-    "source": "streamlit/agent-skills",
+  "design-patterns": {
+    "source": "rtk-ai/rtk",
     "sourceType": "github",
-    "sourceUrl": "https://github.com/streamlit/agent-skills.git"
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
   },
   "docker-expert": {
     "skillPath": "skills/docker-expert/SKILL.md",
@@ -143,6 +217,16 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/abhigyanpatwari/gitnexus.git"
   },
+  "investigate-first": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "issue-triage": {
+    "source": "rtk-ai/rtk",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
+  },
   "langchain-dependencies": {
     "skillPath": "config/skills/langchain-dependencies/SKILL.md",
     "source": "langchain-ai/langchain-skills",
@@ -197,11 +281,26 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
   },
+  "lean-build": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
   "managed-deep-agents": {
     "skillPath": "config/skills/managed-deep-agents/SKILL.md",
     "source": "langchain-ai/langchain-skills",
     "sourceType": "github",
     "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
+  },
+  "megacave": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "migration": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
   },
   "pdf": {
     "pluginName": "document-skills",
@@ -210,12 +309,47 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/anthropics/skills.git"
   },
+  "ponytail": {
+    "source": "dietrichgebert/ponytail",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/dietrichgebert/ponytail.git"
+  },
+  "ponytail-audit": {
+    "source": "dietrichgebert/ponytail",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/dietrichgebert/ponytail.git"
+  },
+  "ponytail-debt": {
+    "source": "dietrichgebert/ponytail",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/dietrichgebert/ponytail.git"
+  },
+  "ponytail-gain": {
+    "source": "dietrichgebert/ponytail",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/dietrichgebert/ponytail.git"
+  },
+  "ponytail-help": {
+    "source": "dietrichgebert/ponytail",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/dietrichgebert/ponytail.git"
+  },
+  "ponytail-review": {
+    "source": "dietrichgebert/ponytail",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/dietrichgebert/ponytail.git"
+  },
   "pptx": {
     "pluginName": "document-skills",
     "skillPath": "skills/pptx/SKILL.md",
     "source": "anthropics/skills",
     "sourceType": "github",
     "sourceUrl": "https://github.com/anthropics/skills.git"
+  },
+  "pr-triage": {
+    "source": "rtk-ai/rtk",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
   },
   "prompt-engineering-patterns": {
     "skillPath": "plugins/llm-application-dev/skills/prompt-engineering-patterns/SKILL.md",
@@ -247,11 +381,31 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/github/awesome-copilot.git"
   },
+  "rtk-tdd": {
+    "source": "rtk-ai/rtk",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
+  },
+  "rtk-triage": {
+    "source": "rtk-ai/rtk",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
+  },
   "ruff": {
     "skillPath": "plugins/astral/skills/ruff/SKILL.md",
     "source": "astral-sh/claude-code-plugins",
     "sourceType": "github",
     "sourceUrl": "https://github.com/astral-sh/claude-code-plugins.git"
+  },
+  "safe-refactor": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
+  },
+  "surgical-patch": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
   },
   "swarm": {
     "skillPath": "config/skills/swarm/SKILL.md",
@@ -259,11 +413,21 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/langchain-ai/langchain-skills.git"
   },
+  "tdd-rust": {
+    "source": "rtk-ai/rtk",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/rtk-ai/rtk.git"
+  },
   "ty": {
     "skillPath": "plugins/astral/skills/ty/SKILL.md",
     "source": "astral-sh/claude-code-plugins",
     "sourceType": "github",
     "sourceUrl": "https://github.com/astral-sh/claude-code-plugins.git"
+  },
+  "ultracave": {
+    "source": "juliusbrussee/caveman",
+    "sourceType": "github",
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
   },
   "uv": {
     "skillPath": "plugins/astral/skills/uv/SKILL.md",
@@ -271,11 +435,10 @@
     "sourceType": "github",
     "sourceUrl": "https://github.com/astral-sh/claude-code-plugins.git"
   },
-  "vikunja-vja": {
-    "skillPath": "vikunja-vja/SKILL.md",
-    "source": "akhy/agent-skills",
+  "verify-and-stop": {
+    "source": "juliusbrussee/caveman",
     "sourceType": "github",
-    "sourceUrl": "https://github.com/akhy/agent-skills.git"
+    "sourceUrl": "https://github.com/juliusbrussee/caveman.git"
   },
   "xlsx": {
     "pluginName": "document-skills",
