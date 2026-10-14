@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+[[ "$1" == --yes && "$2" == skills && "$3" == add ]]
+[[ "$5" == --skill && "$7" == --agent && "$8" == codex && "$9" == claude-code ]]
+[[ "${10}" == --full-depth && "${11}" == -y ]]
+[[ "$PWD" == "$INSTALL_TEST_ROOT" ]]
+printf '%s\t%s\n' "$6" "$4" >> "$INSTALL_TEST_ROOT/calls.tsv"
+# Reproduce both CLI lock writes and subprocess stdin consumption.
+printf '{"version":1,"skills":{"%s":{}}}\n' "$6" > skills-lock.json
+while IFS= read -r ignored; do :; done
+if [[ "$6" == bun && "${INSTALL_TEST_FAIL_BUN:-0}" == 1 ]]; then
+  exit 1
+fi
