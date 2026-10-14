@@ -42,7 +42,7 @@ The current readiness check reports `ok` because this baseline has no mandatory 
 | Ty | Static type checker, installed by `uv sync --locked` | Python changes and CI |
 | pytest, HTTPX, pytest-cov | Local tests and coverage, installed with the dev group | Test and coverage commands |
 | GitNexus CLI | Dependency/impact index; repository alias `fastapi_template` | Agents and contributors changing existing code or making commits under [repository rules](AGENTS.md) |
-| Node.js | Runs the local `.gitnexus/run.cjs` status helper | Checking GitNexus index status |
+| Node.js | Runs GitNexus CLI and the local `.gitnexus/run.cjs` status helper; GitNexus 1.6.12 requires `^22.18.0` or `>=24.11.0` | GitNexus commands, even when installed through Bun |
 | Docker with Compose | Container build and environment-specific local deployment | Container workflows |
 | Draw.io (diagrams.net) | Edits `.drawio` sources and exports diagram screenshots | Creating or updating project diagrams; Desktop CLI is needed for command-line PNG export |
 | Bun | Runs `bunx` for agent skill installation; can also manage JS/TS tooling | Running `scripts/install-skills.sh`, or optional JS/TS work |
@@ -50,7 +50,11 @@ The current readiness check reports `ok` because this baseline has no mandatory 
 
 Ruff and Ty are declared in the `dev` group of [`pyproject.toml`](pyproject.toml); do not install separate global copies to satisfy this project's checks. GitNexus, Draw.io, and Bun are external tools and are not Python dependencies. On a fresh checkout, create the local GitNexus index with `scripts/gitnexus-refresh.sh`; later check `node .gitnexus/run.cjs status` and refresh through the same script when stale. See the [GitNexus guide](.agents/gitnexus-guidelines.md).
 
-Optional coding-agent skills are listed in [`skills-lock.json`](skills-lock.json). With Bun and `jq` installed, run [`scripts/install-skills.sh`](scripts/install-skills.sh) to install each listed skill through `bunx skills add`. The entries identify upstream sources but do not pin revisions; review them before running the installer.
+Installing GitNexus or its skills does not install Node.js. If `gitnexus --version` fails with `/usr/bin/env: node: No such file or directory`, install a supported Node.js runtime and ensure `node --version` works in the same shell before refreshing the index.
+
+Optional coding-agent skills are listed in [`skills-catalog.json`](skills-catalog.json). With Bun and `jq` installed, run [`scripts/install-skills.sh`](scripts/install-skills.sh) to install each listed skill through `bunx skills add`. The entries identify upstream sources but do not pin revisions; review them before running the installer. The catalog remains unchanged; the CLI writes its own ignored `skills-lock.json` in the repository root. The installer attempts every entry, reports failed skill names, and exits with status 1 if any failed. An optional first argument selects another catalog file; its filename must differ from `skills-lock.json`.
+
+The installer targets both Codex and Claude Code. Codex reads the downloaded skills in `.agents/skills/`; the CLI creates Claude Code links in `.claude/skills/`. Both directories are ignored by Git. [Codex](https://developers.openai.com/codex/skills/) can select skills from their descriptions or through an explicit `$skill-name` mention; [Claude Code](https://code.claude.com/docs/en/skills) can select them when relevant or through `/skill-name`. Discovery does not mean every skill runs on every request, and individual skill policies can disable automatic invocation. If a new skill does not appear, restart the agent session.
 
 ## Repository layout
 
